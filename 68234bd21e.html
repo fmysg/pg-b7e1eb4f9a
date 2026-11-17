@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>Column Definitions</title>
+<style>
+body{max-width:52rem;margin:2rem auto;padding:0 1rem;font:16px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#1f2328}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid #d8dce1;padding:.35rem .6rem;text-align:left;vertical-align:top}
+th{background:#f0f2f5}
+pre{background:#f6f7f9;padding:.8rem;overflow:auto;border-radius:6px}
+code{background:#f6f7f9;padding:.1rem .3rem;border-radius:3px}
+blockquote{border-left:3px solid #d8dce1;margin:1rem 0;padding-left:1rem;color:#4a5058}
+h1,h2,h3{line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+<article>
+<h1><img src="https://dash.plotly.com/assets/images/language_icons/python_50px.svg" alt="" loading="lazy" referrerpolicy="no-referrer"> Column Definitions</h1>
+<p>Define columns on the <code>AgGrid</code> component using the <code>columnDefs</code> property, provided as a list of dictionaries. Columns<br>
+render in the order they are provided.</p>
+<p>See AG Grid<br>
+documentation <a href="https://www.ag-grid.com/archive/35.2.0/react-data-grid/column-properties/">Column Properties</a><br>
+for a list of all properties that can be applied to a column.</p>
+<p>Here, we define a grid with 3 columns:</p>
+<pre><code class="language-python">columnDefs = [
+    {'field': 'Name'},
+    {'field': 'PetalLength'},
+    {'field': 'PetalWidth'},
+]
+</code></pre>
+<p>Use <code>defaultColDef</code> to set properties that all columns will inherit. Adding to the previous example, here we configure<br>
+all columns to be editable:</p>
+<pre><code class="language-python">columnDefs = [
+    {'field': 'Name'},
+    {'field': 'PetalLength'},
+    {'field': 'PetalWidth'},
+],
+defaultColDef = {'editable': True}
+</code></pre>
+<p>And here, we make all columns editable, except the <code>Name</code> column:</p>
+<pre><code class="language-python">columnDefs = [
+    {'field': 'Name', 'editable': False},
+    {'field': 'PetalLength'},
+    {'field': 'PetalWidth'},
+],
+defaultColDef = {'editable': True}
+</code></pre>
+<p>The previous example makes all columns editable, except the <code>Name</code> column, because when the grid creates a column, it<br>
+starts with the default column definition. It then adds properties defined via column types (see the next section) and<br>
+then finally adds properties from the specific column definition.</p>
+<h2>Basic Column Definitions</h2>
+<p>Here’s a complete example using <code>ColumnDefs</code> and <code>defaultColDef</code>. In this example, all columns are <code>sortable</code>, except<br>
+for the <code>Name</code> column, which has <code>sortable</code> set to <code>False</code>.</p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/iris.csv&quot;
+)
+
+columnDefs = [
+    {&quot;field&quot;: &quot;Name&quot;, &quot;sortable&quot;: False },
+    {&quot;field&quot;: &quot;SepalWidth&quot;},
+    {&quot;field&quot;: &quot;PetalLength&quot;},
+    {&quot;field&quot;: &quot;PetalWidth&quot;},
+    {&quot;field&quot;: &quot;SepalLength&quot;},
+]
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-basic&quot;,
+            rowData=df.to_dict(&quot;records&quot;),
+            defaultColDef={&quot;filter&quot;: True},
+            columnDefs=columnDefs,
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        ),
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<h2>Grouping Columns</h2>
+<p>If you want the columns to be grouped, you can include them as children like so:</p>
+<pre><code class="language-python"># put the three columns into a group
+columnDefs = [
+    {
+        'headerName': 'Sepal',
+        'children': [
+            {'field': &quot;SepalWidth&quot;, 'headerName': 'Width'},
+            {'field': &quot;SepalLength&quot;, 'headerName': 'Length'},
+        ]
+    },
+]
+</code></pre>
+<p>Here is an example using columns grouping:</p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/iris.csv&quot;
+)
+
+columnDefs = [
+    {&quot;field&quot;: &quot;Name&quot;, &quot;sortable&quot;: False },
+    {
+        'headerName': 'Sepal',
+        'children': [
+            {'field': &quot;SepalWidth&quot;, 'headerName': 'Width'},
+            {'field': &quot;SepalLength&quot;, 'headerName': 'Length'},
+        ]
+    },
+    {
+        'headerName': 'Petal',
+        'children': [
+            {'field': &quot;PetalWidth&quot;, 'headerName': 'Width'},
+            {'field': &quot;SepalLength&quot;, 'headerName': 'Length'},
+        ]
+    }
+]
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-groups&quot;,
+            rowData=df.to_dict(&quot;records&quot;),
+            defaultColDef={&quot;filter&quot;: True},
+            columnDefs=columnDefs,
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        ),
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<p>Groups are explained in more detail in the<br>
+section <a href="https://dash.plotly.com/dash-ag-grid/column-groups">Column Groups</a>.</p>
+<h2>Accessing Nested Data Values</h2>
+<p>The <code>field</code> property is used to access values from the row data. In most cases the <code>field</code> will be a<br>
+property name. If, however, the row data contains nested dictionaries, you can use dot notation to<br>
+reference deep property values.</p>
+<p>For example, if the row data has a dictionary property <code>Sepal</code> that contains the <code>Width</code> and <code>Length</code> of the <code>Sepal</code>, then<br>
+use the field values <code>Sepal.Width</code> and <code>Sepal.Length</code> to display the <code>Width</code> and <code>Length</code>.</p>
+<pre><code class="language-python">rowData = [
+    {
+        'Name': 'Iris-setosa',
+        'Sepal': {
+            'Width': 3.5,
+            'Length': 5.1
+        },
+        'Petal': {
+            'Width': 0.2,
+            'Length': 1.4
+        },
+    },
+]
+
+columnDefs = [
+    {&quot;field&quot;: &quot;Name&quot;},
+    # Uses dot notation to access nested properties
+    {&quot;field&quot;: &quot;Sepal.Width&quot;},
+    {&quot;field&quot;: &quot;Sepal.Length&quot;},
+    {&quot;field&quot;: &quot;Petal.Width&quot;},
+    {&quot;field&quot;: &quot;Petal.Length&quot;},
+]
+</code></pre>
+<p>Here is an example using nested properties for the fields of the grid:</p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+
+app = Dash()
+
+rowData = [
+    {
+        'Name': 'Iris-setosa',
+        'Sepal': {
+            'Width': 3.5,
+            'Length': 5.1
+        },
+        'Petal': {
+            'Width': 0.2,
+            'Length': 1.4
+        },
+    },
+    {'Name': 'Iris-setosa', 'Sepal': {'Width': 3.0, 'Length': 4.9}, 'Petal': {'Width': 0.2, 'Length': 1.4}},
+    {'Name': 'Iris-setosa', 'Sepal': {'Width': 3.2, 'Length': 4.7}, 'Petal': {'Width': 0.2, 'Length': 1.3}},
+    {'Name': 'Iris-setosa', 'Sepal': {'Width': 3.2, 'Length': 4.6}, 'Petal': {'Width': 0.2, 'Length': 1.5}},
+    {'Name': 'Iris-setosa', 'Sepal': {'Width': 3.1, 'Length': 5.0}, 'Petal': {'Width': 0.2, 'Length': 1.4}},
+    {'Name': 'Iris-versicolor', 'Sepal': {'Width': 3.2, 'Length': 7.0}, 'Petal': {'Width': 1.4, 'Length': 4.7}},
+    {'Name': 'Iris-versicolor', 'Sepal': {'Width': 3.2, 'Length': 6.4}, 'Petal': {'Width': 1.5, 'Length': 4.5}},
+    {'Name': 'Iris-versicolor', 'Sepal': {'Width': 3.1, 'Length': 6.9}, 'Petal': {'Width': 1.5, 'Length': 4.9}},
+    {'Name': 'Iris-versicolor', 'Sepal': {'Width': 2.3, 'Length': 5.5}, 'Petal': {'Width': 1.3, 'Length': 4.0}},
+    {'Name': 'Iris-versicolor', 'Sepal': {'Width': 2.8, 'Length': 6.5}, 'Petal': {'Width': 1.5, 'Length': 4.6}},
+    {'Name': 'Iris-virginica', 'Sepal': {'Width': 3.3, 'Length': 6.3}, 'Petal': {'Width': 2.5, 'Length': 6.0}},
+    {'Name': 'Iris-virginica', 'Sepal': {'Width': 2.7, 'Length': 5.8}, 'Petal': {'Width': 1.9, 'Length': 5.1}},
+    {'Name': 'Iris-virginica', 'Sepal': {'Width': 3.0, 'Length': 7.1}, 'Petal': {'Width': 2.1, 'Length': 5.9}},
+    {'Name': 'Iris-virginica', 'Sepal': {'Width': 2.9, 'Length': 6.3}, 'Petal': {'Width': 1.8, 'Length': 5.6}},
+    {'Name': 'Iris-virginica', 'Sepal': {'Width': 3.0, 'Length': 6.5}, 'Petal': {'Width': 2.2, 'Length': 5.8}},
+]
+
+columnDefs = [
+    {&quot;field&quot;: &quot;Name&quot;},
+    {&quot;field&quot;: &quot;Sepal.Width&quot;},
+    {&quot;field&quot;: &quot;Sepal.Length&quot;},
+    {&quot;field&quot;: &quot;Petal.Width&quot;},
+    {&quot;field&quot;: &quot;Petal.Length&quot;},
+]
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-nested-data&quot;,
+            rowData=rowData,
+            defaultColDef={&quot;filter&quot;: True},
+            columnDefs=columnDefs,
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        )
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<p>For alternative ways to provide cell data, such as value getters, see the documentation<br>
+on <a href="https://dash.plotly.com/dash-ag-grid/value-getters">Value Getters</a>.</p>
+<h3>Suppressing Field Dot Notation</h3>
+<p>If your row data have dots in their property names, for example, with the structure:</p>
+<pre><code class="language-python">rowData = [
+    {
+        'Name': 'Iris-setosa',
+        'Sepal.Width': 3.5, 'Sepal.Length': 5.1,
+        'Petal.Width': 0.2, 'Petal.Length': 1.4
+    },
+    # ...
+]
+</code></pre>
+<p>Then, trying to use the <code>rowData</code> parameters, setting :</p>
+<pre><code class="language-python">columnDefs = [
+    {&quot;field&quot;: &quot;Sepal.Width&quot;},
+    # ...
+]
+</code></pre>
+<p>The grid will look for a nested value as shown in the previous example, but will not find it and the column will be<br>
+empty.</p>
+<p>To prevent this behavior and be able to use dots in <code>rowData</code> parameter names, it is possible to set the Grid Option:</p>
+<pre><code class="language-python">dashGridOptions = {&quot;suppressFieldDotNotation&quot;: True}
+</code></pre>
+<p>This prevents the dots from being interpreted as deep references across all column definitions. For<br>
+example, <code>&quot;Sepal.Width&quot;</code> will be treated as plain text.</p>
+<h2>Column Types</h2>
+<p>Use <code>columnTypes</code> to specify properties that different types of column should have.</p>
+<p>In this example, we define three column types: <code>numberColumn</code>, <code>medalColumn</code>, and <code>nonEditableColumn</code>, and we use these<br>
+types in the column definitions. For example, the <code>age</code> column has a type of <code>numberColumn</code>.</p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/ag-grid/olympic-winners.csv&quot;
+)
+
+columnTypes = {
+    &quot;numberColumn&quot;: {&quot;width&quot;: 130, &quot;filter&quot;: &quot;agNumberColumnFilter&quot;},
+    &quot;medalColumn&quot;: {&quot;width&quot;: 100, &quot;columnGroupShow&quot;: &quot;open&quot;, &quot;filter&quot;: False},
+    &quot;nonEditableColumn&quot;: {&quot;editable&quot;: False},
+}
+
+columnDefs = [
+    # Using default ColDef
+    {&quot;field&quot;: &quot;athlete&quot;},
+    {&quot;field&quot;: &quot;sport&quot;},
+    # Using number column type
+    {&quot;field&quot;: &quot;age&quot;, &quot;type&quot;: &quot;numberColumn&quot;},
+    # Overrides the default with a number filter
+    {&quot;field&quot;: &quot;year&quot;, &quot;filter&quot;: &quot;agNumberColumnFilter&quot;},
+    # Using non-editable column types
+    {&quot;field&quot;: &quot;date&quot;, &quot;type&quot;: &quot;nonEditableColumn&quot;, &quot;width&quot;: 220},
+    {
+        &quot;headerName&quot;: &quot;Medals&quot;,
+        &quot;groupId&quot;: &quot;medalsGroup&quot;,
+        &quot;children&quot;: [
+            # Using medal column type
+            {&quot;headerName&quot;: &quot;Gold&quot;, &quot;field&quot;: &quot;gold&quot;, &quot;type&quot;: &quot;medalColumn&quot;},
+            {&quot;headerName&quot;: &quot;Silver&quot;, &quot;field&quot;: &quot;silver&quot;, &quot;type&quot;: &quot;medalColumn&quot;},
+            {&quot;headerName&quot;: &quot;Bronze&quot;, &quot;field&quot;: &quot;bronze&quot;, &quot;type&quot;: &quot;medalColumn&quot;},
+            {&quot;headerName&quot;: &quot;Total&quot;, &quot;field&quot;: &quot;total&quot;, &quot;type&quot;: &quot;medalColumn&quot;, &quot;columnGroupShow&quot;: &quot;closed&quot;},
+        ],
+    },
+]
+
+defaultColDef = {
+    # set the default column width
+    &quot;width&quot;: 100,
+    # make every column editable
+    &quot;editable&quot;: True,
+    # make every column use 'text' filter by default
+    &quot;filter&quot;: &quot;agTextColumnFilter&quot;,
+    # enable floating filters by default
+    &quot;floatingFilter&quot;: True,
+}
+
+defaultColGroupDef = {
+    # Moving the columns outside the group (and hence breaking the group) is not allowed
+    &quot;marryChildren&quot;: True,
+}
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-type&quot;,
+            columnDefs=columnDefs,
+            rowData=df.to_dict(&quot;records&quot;),
+            defaultColDef=defaultColDef,
+            dashGridOptions={
+                'defaultColGroupDef': defaultColGroupDef,
+                'columnTypes': columnTypes,
+                &quot;animateRows&quot;: False
+            }
+        ),
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<h2>Right Aligned and Numeric Columns</h2>
+<p>Set a column definition type to <code>rightAligned</code> to align a column header and contents to the right.</p>
+<p>Because right alignment is used for numbers, we also provided an alias <code>numericColumn</code> that can be used to align the<br>
+header and cell text to the right.</p>
+<pre><code class="language-python">columnDefs = [
+    {'headerName': 'Column A', 'field': 'a'},
+    {'headerName': 'Column B', 'field': 'b', 'type': 'rightAligned'},
+    {'headerName': 'Column C', 'field': 'c', 'type': 'numericColumn'},
+]
+</code></pre>
+<p>The <code>rightAligned</code> column type works by setting the header and cell class properties as follows.</p>
+<pre><code class="language-python">rightAligned = {
+    'headerClass': 'ag-right-aligned-header',
+    'cellClass': 'ag-right-aligned-cell'
+}
+</code></pre>
+<p>If you manually set<br>
+either <code>headerClass</code> or <code>cellClass</code> then you may need to include the right aligned CSS classes yourself, as column type<br>
+properties are overridden by explicitly defined column properties.</p>
+<p>Here is an example using the type <code>'rightAligned'</code> and <code>'numericColumn'</code></p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/ag-grid/olympic-winners.csv&quot;
+)
+
+columnDefs = [
+    {&quot;field&quot;: &quot;athlete&quot;},
+    {&quot;field&quot;: &quot;sport&quot;, &quot;type&quot;: &quot;rightAligned&quot;},
+    {&quot;field&quot;: &quot;gold&quot;, &quot;type&quot;: &quot;numericColumn&quot;},
+    {&quot;field&quot;: &quot;silver&quot;, &quot;type&quot;: &quot;numericColumn&quot;},
+    {&quot;field&quot;: &quot;bronze&quot;, &quot;type&quot;: &quot;numericColumn&quot;},
+]
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-right-aligned&quot;,
+            columnDefs=columnDefs,
+            rowData=df.to_dict(&quot;records&quot;),
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        )
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<h2>Centered Columns</h2>
+<p>To center the header and the cell content, you can add the following classes to any <code>*.css</code> file in the assets folder:</p>
+<pre><code class="language-css">.center-aligned-header .ag-header-cell-label {
+    justify-content: center;
+}
+
+.center-aligned-cell {
+    text-align: center;
+}
+</code></pre>
+<p>Then add the classes to the column using <code>headerClass</code> and <code>cellClass</code>.</p>
+<p>Alternatively, to center the content of the cells, it is possible to use <code>&quot;cellStyle&quot;: {'textAlign': 'center'}</code> in the<br>
+column definition.</p>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/ag-grid/olympic-winners.csv&quot;
+)
+
+columnDefs = [
+    {&quot;field&quot;: &quot;athlete&quot;},
+    {&quot;field&quot;: &quot;sport&quot;, &quot;cellClass&quot;: 'center-aligned-cell'},
+    {&quot;field&quot;: &quot;gold&quot;, &quot;cellStyle&quot;: {'textAlign': 'center'}},
+    {&quot;field&quot;: &quot;silver&quot;, &quot;cellStyle&quot;: {'textAlign': 'center'}},
+    {&quot;field&quot;: &quot;bronze&quot;, &quot;cellStyle&quot;: {'textAlign': 'center'}},
+]
+
+defaultColDef = {&quot;headerClass&quot;: 'center-aligned-header'}
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definitions-centered&quot;,
+            columnDefs=columnDefs,
+            rowData=df.to_dict(&quot;records&quot;),
+            defaultColDef=defaultColDef,
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        ),
+    ]
+)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+<h2>Column IDs</h2>
+<p>Each column generated by the grid is given a unique column ID, which is used in parts of the Grid API.</p>
+<p>If you are using the API and the column IDs are a little complex (for example, if two columns have the same <code>field</code>, or<br>
+if you<br>
+are using <code>valueGetter</code> instead of <code>field</code>) then it is useful to understand how column IDs are generated.</p>
+<p>If the user provides <code>colId</code> in the column definition, then this is used, otherwise <code>field</code> is used. If neither<br>
+<code>colId</code> nor <code>field</code> exists then a number is assigned.<br>
+Finally, the ID is ensured to be unique by appending ‘_n’ if necessary, where n is the first positive number that allows<br>
+uniqueness.</p>
+<blockquote>
+<p><strong>Note:</strong> While the grid will auto-correct duplicate <code>colId</code> values by appending <code>_1</code>, <code>_2</code>, etc., you should always provide unique column IDs to avoid unexpected behavior.</p>
+</blockquote>
+<pre><code>```python
+import dash_ag_grid as dag
+from dash import Dash, html, Input, Output, State, callback
+import pandas as pd
+
+app = Dash()
+
+df = pd.read_csv(
+    &quot;https://raw.githubusercontent.com/plotly/datasets/master/ag-grid/olympic-winners.csv&quot;
+)
+
+columnDefs = [
+    {'colId': 'firstCol', &quot;field&quot;: &quot;athlete&quot;, &quot;headerName&quot;: &quot;Col1&quot;},
+    #  Use unique IDs
+    {'colId': 'firstCol_1', &quot;field&quot;: &quot;athlete&quot;, &quot;headerName&quot;: &quot;Col2&quot;},
+    {&quot;field&quot;: &quot;sport&quot;, &quot;headerName&quot;: &quot;Col3&quot;},
+    {&quot;field&quot;: &quot;sport&quot;, &quot;headerName&quot;: &quot;Col4&quot;},
+    {&quot;valueGetter&quot;: {&quot;function&quot;: &quot;params.data.age&quot;}, &quot;headerName&quot;: &quot;Col5&quot;},
+    {&quot;valueGetter&quot;: {&quot;function&quot;: &quot;params.data.age&quot;}, &quot;headerName&quot;: &quot;Col6&quot;},
+]
+
+app.layout = html.Div(
+    [
+        dag.AgGrid(
+            id=&quot;column-definition-ID&quot;,
+            rowData=df.to_dict(&quot;records&quot;),
+            columnDefs=columnDefs,
+            defaultColDef={&quot;filter&quot;: True},
+            columnSize=&quot;sizeToFit&quot;,
+            dashGridOptions={&quot;animateRows&quot;: False}
+        ),
+        html.Pre(id=&quot;pre-col-ID&quot;, style={'display': 'inline-block'}),
+        html.Pre(id=&quot;pre-col-def&quot;, style={'display': 'inline-block'}),
+    ]
+)
+
+@callback(
+    Output(&quot;pre-col-ID&quot;, &quot;children&quot;),
+    Output(&quot;pre-col-def&quot;, &quot;children&quot;),
+    Input(&quot;column-definition-ID&quot;, &quot;columnState&quot;),
+    State(&quot;column-definition-ID&quot;, &quot;columnDefs&quot;),
+    prevent_initial_call=True,
+)
+def display_state(col_state, col_def):
+    output_colId = [&quot;COLUMN ID\n&quot;] + [col_state[i]['colId'] for i in range(len(col_state))]
+    output_coldef = [&quot;COLUMN DEFINITIONS\n&quot;] + [str(col_def[i]) for i in range(len(col_def))]
+    return '\n'.join(output_colId), '\n'.join(output_coldef)
+
+if __name__ == &quot;__main__&quot;:
+    app.run(debug=True)
+```
+</code></pre>
+</article>
+</main>
+</body>
+</html>

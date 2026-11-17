@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>下载资源</title>
+<style>
+body{max-width:52rem;margin:2rem auto;padding:0 1rem;font:16px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#1f2328}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid #d8dce1;padding:.35rem .6rem;text-align:left;vertical-align:top}
+th{background:#f0f2f5}
+pre{background:#f6f7f9;padding:.8rem;overflow:auto;border-radius:6px}
+code{background:#f6f7f9;padding:.1rem .3rem;border-radius:3px}
+blockquote{border-left:3px solid #d8dce1;margin:1rem 0;padding-left:1rem;color:#4a5058}
+h1,h2,h3{line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+<article>
+<h3><a href="https://developer.qiniu.com/kodo">对象存储</a></h3>
+<ul>
+<li>[产品动态](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6383/product-news">产品更新动态</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8161/price-off-notice">2021 年 08 月 1 日起低频存储数据取回降价通知</a></li>
+<li><a href="https://developer.qiniu.com/kodo/11968/chtype-billing-item-changes">存储类型转换次数计费项变更</a></li>
+<li><a href="https://developer.qiniu.com/kodo/13421/safety-visit">对象存储空间访问域名安全策略升级</a></li>
+</ol>
+<ul>
+<li>[产品简介](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1277/product-introduction">产品概述</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3978/the-basic-concept">基本概念</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3956/kodo-category">存储类型</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12747/storage-class-intelligent-tiering">智能分层存储简介</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1671/region-endpoint-fq">存储区域</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1205/programming-model">编程模型</a></li>
+</ol>
+<ul>
+<li>[购买指南](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6379/metering-and-billing">计量项与计费项</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6219/accounts-owe-protection">账号欠费保护期功能限制</a></li>
+</ol>
+<ul>
+<li>[快速入门](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1233/console-quickstart">快速入门文档</a></li>
+</ol>
+<ul>
+<li>[使用指南](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8596/development-guidelines">开发指南</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1644/security">安全机制</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1206/put-policy">上传策略</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1208/upload-token">上传凭证</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1202/download-token">下载凭证</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1201/access-token">管理凭证</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6671/historical-document-management-certificate">管理凭证历史文档</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1234/upload-types">上传资源</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1272/form-upload">表单上传</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1650/chunked-upload">分片上传 v1 版</a></li>
+<li><a href="https://developer.qiniu.com/kodo/7458/multipartupload">分片上传 v2 版</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1651/simple-response">简单反馈</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1653/callback">回调通知</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1652/redirect">303 重定向</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1661/persistent-op">异步数据预处理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1654/response-body">自定义响应内容</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1235/vars">变量</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1232/download-process">下载资源</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1655/download-public">公开资源下载</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1656/download-private">私有资源下载</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1657/download-anti-leech">防盗链</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1659/download-setting">下载设置</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1660/advanced-download">高级下载</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8599/management-of-storage-space">管理存储空间</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8622/dev-the-binding-source-domain-name">绑定源站域名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8603/dev-access-control">访问控制</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8604/a-static-page-management">静态页面管理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12137/space-note">空间备注</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8605/dev-file-the-client-cache">文件客户端缓存</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12261/redirection">重定向</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8607/dev-space-label">空间标签</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8606/dev-authorization-of-the-space">空间授权</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8608/dev-cross-domain-resource-sharing">跨域资源共享</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8609/dev-life-cycle-management">生命周期管理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8610/dev-event-notification">事件通知</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8611/dev-the-mirror-back-to-the-source">镜像回源</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12876/bucket-inventory">空间清单</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8613/dev-cross-regional-synchronization">跨区域同步</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8614/space-access-log">空间访问日志</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8601/dev-delete-the-space">删除空间</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8625/dev-data-security">数据安全</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8618/dev-preventing-hotlinking">Referer 防盗链</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8621/dev-object-locking">对象锁定</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8615/dev-the-data-processing">数据处理</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8623/dev-the-picture-style">图片处理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12654/video-process">实时转码（边转边播）</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8616/dev-the-original-image-to-protect">原始资源保护</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12794/workflowTask">数据工作流</a></li>
+<li><a href="https://developer.qiniu.com/kodo/13373/auto-html2md">HTML2Markdown 自适应</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12784/image-compression-format-adaption">图片压缩格式自适应</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12748/hot-video-slim">CDN 热点视频瘦身</a></li>
+</ol>
+</li>
+<li>[多模态数据发现与处理](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/13549/data-insight">多模态理解</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12656/transfer-acceleration">传输加速</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4086/aws-s3-compatible">AWS S3 兼容</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/5906/storage-type">存储类型</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4088/s3-access-domainname">服务域名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4093/s3-authentication">签名认证</a></li>
+<li><a href="https://developer.qiniu.com/kodo/5914/s3-compatible-sts">临时安全凭证</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4091/s3-compatible-header">兼容公共头</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4087/compatible-s3-api">兼容 API</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6317/BucketPolicy">使用 Bucket Policy 授权</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12553/S3%20SDK%20sample">兼容 SDK 示例</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12554/aws-sdk-cpp-examples">AWS SDK for C++</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12555/aws-sdk-csharp-examples">AWS SDK for .NET</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12556/aws-sdk-go-examples">AWS SDK for Go</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12557/aws-sdk-java-examples">AWS SDK for Java</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12558/aws-sdk-javascript-examples">AWS SDK for JavaScript</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12559/aws-sdk-kotlin-examples">AWS SDK for Kotlin</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12562/aws-sdk-php-examples">AWS SDK for PHP</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12563/aws-sdk-python-examples">AWS SDK for Python</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12571/aws-sdk-ruby-examples">AWS SDK for Ruby</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12572/aws-sdk-rust-examples">AWS SDK for Rust</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12573/aws-sdk-swift-examples">AWS SDK for Swift</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/4096/s3-compatible-sdk">兼容工具示例</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12574/aws-cli-examples">AWS CLI</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12576/cloud-berry-explorer-examples">CloudBerry Explorer</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12577/s3-browser-examples">S3 Browser</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12578/s3fs-examples">S3FS</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1231/appendix">附录</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8452/kodo-console-guide">控制台指南</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8404/an-overview-of-the-console">控制台概览</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8456/bucket-management">空间管理</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8498/the-new-space">新建空间</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8499/list-of-space-management">空间列表管理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8500/an-overview-of-the-space">空间概览</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8501/space-settings">空间设置</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8502/set-access-control">设置访问控制</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12269/set-a-static-page">设置静态页面</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12157/set-the-space-note">设置空间备注</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8535/settings-file-the-client-cache">设置文件客户端缓存</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12262/set-the-redirect">设置重定向</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8536/set-up-the-label-management">设置标签管理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8537/set-the-space-authorization">设置空间授权</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8538/set-the-referer-hotlinking-prevention">设置Referer防盗链</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8539/set-the-cross-domain-resource-sharing">设置跨域资源共享</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8540/set-the-life-cycle">设置生命周期</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8541/set-the-event-notification">设置事件通知</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8542/set-up-the-mirror-back-to-the-source">设置镜像回源</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12877/set-bucket-inventory">设置空间清单</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8545/set-the-object-lock">设置对象锁定</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8546/set-the-space-log">设置空间日志</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8547/set-the-space-content-review">设置空间内容审核</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12659/set-transfer-acceleration">设置传输加速</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8548/remove-the-storage-space">删除存储空间</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8527/kodo-domain-name-management">域名管理</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8555/set-the-custom-cdn-to-accelerate-the-domain-name">设置自定义CDN加速域名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8556/set-the-custom-source-domain-name">设置自定义源站域名</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8552/the-data-processing">数据处理</a>
+<ol>
+<li>[多媒体样式](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8558/set-the-picture-style">设置图片样式</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12738/set-the-video-style">设置视频样式</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8560/set-the-original-protection">设置原始资源保护</a></li>
+</ol>
+</li>
+<li>[任务与工作流](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12785/task">任务管理</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12746/tigger">任务触发器</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12745/workflow-template">工作流模板</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/13553/image-insight">图片理解</a></li>
+<li><a href="https://developer.qiniu.com/kodo/13554/video-insight">视频理解</a></li>
+</ol>
+</li>
+<li>[预设集管理](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12787/avthumb-transcode">普通转码</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12788/avsmart-transcode">锐智转码</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12789/video-watermark">视频水印</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12790/video-screenshot">视频截图</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12791/avconcat">音视频拼接</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8561/file-management">文件管理</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8562/upload-a-file">上传文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/10576/create-a-directory">创建目录</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8563/search-for-files">搜索文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8564/modify-the-file-name">修改文件名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8565/modify-the-file-type">修改文件类型</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8566/view-the-file-information">查看文件详情</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8567/settings-file-meta-information">设置文件元信息</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8568/the-download-file">下载文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8569/share-files">分享文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12667/share-folder">分享目录</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12997/object-statistics">统计文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12360/refresh-the-cdn-cache">刷新 CDN 缓存</a></li>
+<li><a href="https://developer.qiniu.com/kodo/10578/move-files">移动文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8571/delete-the-file">删除文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/10577/delete-the-directory">删除目录</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8572/modify-the-file-storage-type">修改文件存储类型</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8573/thaw-file-storage">解冻文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/10580/the-task-center">任务中心</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/8557/set-the-cross-regional-synchronization">设置跨区域同步</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8531/statistical-analysis">统计分析</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12546/object-storage-safety">存储安全</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12547/content-detection">内容审核</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12548/violation-list">违规列表</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12666/set-data-migration">设置数据迁移</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12906/data-migration-by-agent">使用 kodoimportv3 半托管 Agent 迁移数据</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>[API 文档](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/3939/overview-of-the-api">API 概览</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3924/common-request-headers">HTTP Headers</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3928/error-responses">错误响应</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1276/data-format">数据格式</a></li>
+<li>[Service 接口](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/3926/get-service">获取 Bucket 列表</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/3941/the-bucket-interface">Bucket 接口</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1382/mkbucketv3">创建 Bucket</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1601/drop-bucket">删除 Bucket</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3949/get-the-bucket-space-domain">获取 Bucket 空间域名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3946/set-bucket-private">设置 Bucket 访问权限</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6314/put-bucket-tagging">设置空间标签</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6315/get-bucket-tagging">查询空间标签</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6316/delete-bucket-tagging">删除空间标签</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1274/rs">Object 接口</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1312/upload">直传文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/7443/shard-to-upload">分片上传 v1 版</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1286/mkblk">创建块</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1251/bput">上传片</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1287/mkfile">创建文件</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/6364/multipartupload-interface">分片上传 v2 版</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6365/initialize-multipartupload">初始化任务</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6366/upload-part">分块上传数据</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6368/complete-multipart-upload">完成文件上传</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6367/abort-multipart-upload">终止上传</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6858/listparts">列举已上传分片</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1284/list">资源列举</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1308/stat">资源元信息查询</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1252/chgm">资源元信息修改</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1288/move">资源移动／重命名</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1254/copy">资源复制</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1257/delete">资源删除</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1250/batch">批量操作</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4173/modify-the-file-status">修改文件状态</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3710/chtype">修改文件存储类型</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6380/restore-archive">解冻归档/深度归档存储文件</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1732/update-file-lifecycle">修改文件过期删除时间</a></li>
+<li><a href="https://developer.qiniu.com/kodo/8062/modify-object-life-cycle">修改文件生命周期</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1293/prefetch">镜像资源更新</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4097/asynch-fetch">异步第三方资源抓取</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/3906/statistic-interface">数据统计接口</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/3914/count">count</a></li>
+<li><a href="https://developer.qiniu.com/kodo/3908/statistic-space">space</a></li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>[SDK 下载](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12669/kodo-harmony-sdk">鸿蒙(Harmony) SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1236/android">Android SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1664/android-sdk-6">Android SDK历史文档</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/8167/the-android-sdk-v7-document">Android SDK V7</a></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1255/cpp">C/C++ SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1237/csharp">C# SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/4056/c-sdk-v7-2-15">C# SDK v7.2.15 文档</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1500/csharp-sdk-v7p0">C# SDK v7.0 文档</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1499/csharp-sdk-v6">C# SDK v6 文档</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/7598/flutter-sdk">Flutter SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1238/go">Go SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1265/go-v6">Go SDK历史版本</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1239/java">Java SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1662/java-sdk-6">Java SDK 历史文档</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1283/javascript">JavaScript SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/6889/javascript-sdk-historical-document-2-x">JavaScript SDK历史文档2.x</a></li>
+<li><a href="https://developer.qiniu.com/kodo/4244/the-javascript-sdk-historical-documents-1-x">JavaScript SDK历史文档1.x</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1289/nodejs">Node.js SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/3828/node-js-v6">Node.js SDK V6</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1240/objc">Objective-C SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1241/php">PHP SDK</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/1663/legacy-php">PHP SDK历史文档</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/1242/python">Python SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1304/ruby">Ruby SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/11853/rust">Rust SDK</a></li>
+<li><a href="https://developer.qiniu.com/kodo/11868/the-sdk-privacy-policy">SDK 隐私政策</a></li>
+</ol>
+<ul>
+<li>[实用工具](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/5972/kodo-browser">图形化工具 Kodo Browser</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1302/qshell">命令行工具 Qshell</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6435/kodoimport">数据迁移工具 Kodoimport</a></li>
+<li>[检测工具](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/2528/upload-webtest">上传速度检测</a></li>
+<li><a href="https://developer.qiniu.com/kodo/13457/upload-webtest2">上传测试页面</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/6460/qiniu-jenkins-plugin">Qiniu Jenkins Plugin</a></li>
+</ol>
+<ul>
+<li>[最佳实践](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/13372/html2markdown-ai">Agent 场景中的 Markdown 最佳实践</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12914/mcp-aimodel-kodo">基于 MCP 使用大模型访问对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12018/data-security-best-practices">数据安全最佳实践</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12020/reduce-because-of-the-account-password-reveal-that-brings-the-risk-of-unauthorized-access">降低因账号密码泄露带来的未授权访问风险</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12021/reducing-the-risk-of-malicious-tampering-with-data">降低被恶意篡改数据的风险</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6323/prevent-malicious-file-upload-best-practices">防止恶意文件上传</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12022/reduce-the-risk-of-be-malicious-access-stolen">降低被恶意访问、盗量的风险</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12023/to-reduce-or-the-risk-of-data-loss-as-a-result-of-wrong-operation">降低或因误操作导致的数据丢失的风险</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12024/the-key-to-tracking-traceability-of-data-operation">跟踪、追溯对数据的关键操作</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12025/sensitive-data-security-protection">敏感数据安全防护</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12660/data-migration">数据迁移</a>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12664/hotdata_to_kodo">热数据无缝迁移</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12662/localfiles_to_kodo">本地数据迁移至 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12663/urls_to_kodo">以 URL 作为源地址的数据迁移至 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12661/cs_to_kodo">第三方云存储数据迁移至 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12909/localFS_to_kodo">LocalFS 数据迁移至 Kodo</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12797/mount-bucket-as-file-system">文件系统挂载存储桶</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12799/kubernetes-csi-mount-bucket">在容器中挂载存储桶</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12798/data-backup">数据备份</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12275/the-third-party-software-extension-support">开源软件管理对象存储</a>
+<ol>
+<li>[使用 Go CDK 对接对象存储 Kodo](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12590/qiniu-go-cdk-driver">使用七牛 Go CDK Driver 对接对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12615/go-cdk-s3-compatible">使用 Go CDK 通过 S3 协议对接对象存储 Kodo</a></li>
+</ol>
+</li>
+<li>[使用 Hadoop 管理对象存储 Kodo](javascript:;)
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/12276/through-docking-hadoop-s3a-agreement">使用 Hadoop S3A 客户端管理对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12506/Use-Hadoop-kodo">使用 Hadoop-Kodo 插件管理对象存储 Kodo</a></li>
+</ol>
+</li>
+<li><a href="https://developer.qiniu.com/kodo/12348/use-kubernetes-csi-kodo-mount-object-storage">使用 Kubernetes CSI 挂载对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12285/docking-rclone">使用 Rclone 命令行工具管理对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/12503/restic-s3-kodo">使用 Restic 备份工具对接对象存储 Kodo</a></li>
+<li><a href="https://developer.qiniu.com/kodo/6226/kodo-terraform">使用 Terraform 管理对象存储 Kodo</a></li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>[服务协议](javascript:;)</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/5908/SLA">服务等级协议（SLA）</a></li>
+</ol>
+<ul>
+<li>
+<p><a href="https://developer.qiniu.com/faq?space=kodo">常见问题</a></p>
+</li>
+<li>
+<p>[术语表](javascript:;)</p>
+</li>
+</ul>
+<ol>
+<li><a href="https://developer.qiniu.com/kodo/3736/Q">Q</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1649/e">E</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1643/h">H</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1645/j">J</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1646/l">L</a></li>
+<li><a href="https://developer.qiniu.com/kodo/1647/u">U</a></li>
+</ol>
+<p><a href="https://developer.qiniu.com/kodo">对象存储</a> &gt; 使用指南 &gt; <a href="https://developer.qiniu.com/kodo/development_guidelines/8596/development-guidelines">开发指南</a> &gt; 下载资源</p>
+<h1>下载资源</h1>
+<p>最近更新时间: 2020-12-28 20:06:09</p>
+<p>资源的下载采用<code>HTTP GET</code>方式（详见 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35">RFC2616 标准</a>）。下载过程所需的参数作为URL参数：</p>
+<pre><code>http://&lt;domain&gt;/&lt;key&gt;?&lt;param1&gt;=&lt;value1&gt;&amp;&lt;param2&gt;=&lt;value2&gt;...
+</code></pre>
+<p>下载过程通过标准的<code>HTTP</code>头部<code>Range</code>字段支持分片下载。用户可以在下载时设定该字段，指定只下载该资源的一部分内容：</p>
+<pre><code>Range: bytes=&lt;first-byte-pos&gt;-&lt;last-byte-pos&gt;
+</code></pre>
+<p>支持<code>Range</code>字段相当于提供了断点续传功能，对于大资源的下载可以提供比较好的用户体验，例如暂停下载、网络中断并恢复后继续下载。</p>
+<p>我们经常可以看到移动应用中有一个设置：只在WIFI连接时下载。这个功能就可以通过资源下载对<code>Range</code>字段的支持而比较容易的实现。客户端通过在网络连接切换时判断当前连接类型来自动判断是否应该暂停下载，这样可以避免因为大资源的下载而耗尽3G流量（例如安装包的下载）。</p>
+<p>以上内容是否对您有帮助？</p>
+<p>提交</p>
+</article>
+</main>
+</body>
+</html>

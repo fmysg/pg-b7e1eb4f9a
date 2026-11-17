@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>Restate 1.2: a distributed durable execution engine, built from first principles</title>
+<style>
+body{max-width:52rem;margin:2rem auto;padding:0 1rem;font:16px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#1f2328}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid #d8dce1;padding:.35rem .6rem;text-align:left;vertical-align:top}
+th{background:#f0f2f5}
+pre{background:#f6f7f9;padding:.8rem;overflow:auto;border-radius:6px}
+code{background:#f6f7f9;padding:.1rem .3rem;border-radius:3px}
+blockquote{border-left:3px solid #d8dce1;margin:1rem 0;padding-left:1rem;color:#4a5058}
+h1,h2,h3{line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+<article>
+<p><a href="https://restate.dev/blog">Blog</a></p>
+<h1>Restate 1.2: a distributed durable execution engine, built from first principles</h1>
+<p>February 18, 2025</p>
+<p>Ahmed Farghal, Till Rohrmann, Nik Nasr, Giselle van Dongen, Jack Kleeman, Francesco Guardiani, Igal Shilman, Muhamad Awad, Pavel Tcholakov, Stephan Ewen</p>
+<p>Restate lets you write mission-critical applications, like payment workflows, user management, and AI agents, without worrying about resiliency. With Restate 1.2, you can now run these applications at scale with <strong>highly-available Restate clusters</strong> that tolerate node failures while keeping your applications responsive, resilient, and consistent. Restate is designed to run well wherever you want it to: on cloud, on-prem, across AZs, and even across regions. Restate now also includes a <strong>graphical UI</strong> to give you an intuitive way to introspect and debug your applications.</p>
+<p>Restate is open, free, and available at <a href="https://github.com/restatedev/restate">GitHub</a> or at the Restate <a href="https://restate.dev/">website</a>.</p>
+<h2>The simplest way to write resilient applications</h2>
+<p>It’s still too hard to write applications that are fully resilient. Wouldn't it be great if you could stop worrying about all possible failure scenarios and race conditions in your applications such as charging customers twice, users withdrawing more cash than they have, and selling a single ticket multiple times? Application code is flooded with retry, recovery, and coordination logic across message queues, key-value stores, workflows, and cron jobs. This turns our applications into distributed systems that are hard to reason about and hard to debug.</p>
+<p>Restate solves this by capturing all application activity—RPC calls, timers, promises, API calls—into <a href="https://restate.dev/blog/every-system-is-a-log-avoiding-coordination-in-distributed-applications/">a single, reliable log</a>. In case of failures, Restate retries the execution and recovers the process and all previous state. Restate automatically mitigates against a large class of infrastructure failures, race conditions, timeouts, and other inconsistencies.</p>
+<p>This concept is often called Durable Execution. Restate is a Durable Execution engine with some unique characteristics:</p>
+<ul>
+<li><strong>Simple, flexible programming model:</strong> an intuitive microservice-style API to express your business logic purely in code. No need to mash your business logic into YAML workflow definitions or intertwine it with event-based programming models, just to get the resiliency you want.</li>
+<li><strong>Easy to deploy and operate:</strong> Restate is a single binary - no need to deploy databases, queues or extra dependencies to make it work. Together with the Restate CLI for debugging and inspection, this makes developing with Restate a nice experience.</li>
+<li>Smart integration with <strong>serverless</strong> platforms by <a href="https://restate.dev/blog/we-replaced-400-lines-of-stepfunctions-asl-with-40-lines-of-typescript-by-making-lambdas-suspendable/">suspending waiting functions</a>.</li>
+<li>Detailed <strong>observability</strong> into how your requests are executed across your services without complex tools and setups</li>
+</ul>
+<p>Our flavour of durable execution is the perfect match for stateful asynchronous programs, like AI Agents. <a href="https://www.anthropic.com/research/building-effective-agents">Anthropic</a> recently discussed ways to implement AI Agents, like chaining LLM API calls, dynamic/flexible routing, parallelization, and orchestration. Restate <a href="https://github.com/restatedev/examples?tab=readme-ov-file#use-cases-and-patterns">excels at all of these</a> by making them easy to implement and fully resilient by default.</p>
+<p>Restate can help power any application requiring resiliency and consistency, such as payments, inventory management, managing user signups and subscriptions, order processing, but also technical patterns like sagas, distributed transactions, task fan-out/fan-in, and async task scheduling.</p>
+<p>Since we released the first version of Restate, many developers have fallen in love:</p>
+<ul>
+<li><em>“We built a quite complex application with Restate earlier this month, and I can say, after you build a distributed state machine with it you can’t go back to DIY”. - Aris Koliopoulos, Rated labs</em></li>
+<li><em>“Moving to Restate has been a game-changer for Rhize. The fine balance of simple elegance and power is brilliant.” - Rhize Manufacturing</em></li>
+<li><em>&quot;Restate makes our code simpler, more reliable, and easier to test— it’s night and day compared to step functions. You’ll find yourself reaching for it again and again&quot; - Andy Smith, Uniswap</em></li>
+<li><em>“It is the first system in a long time that got me excited”</em> <em>- Sr. Engineer, major financial services company</em></li>
+</ul>
+<p>As users get the appetite for Restate and want to move more mission-critical workloads to it, the most prominent request we got was highly-available distributed deployments.</p>
+<h2>Distributed deployments for mission-critical workloads</h2>
+<p>From day one, Restate was designed as a highly-available system that is easy and flexible to operate, scales with your business needs, runs efficiently on cloud and on-prem, while retaining the nice aspects of the single-node version, including low latencies, and the great developer experience of a single binary.</p>
+<p>After months of hard work, it’s finally here:</p>
+<h3>High-availability and fast fail-overs</h3>
+<p>You can now scale out your Restate Servers and run them in a highly-available, distributed setup. Restate runs active-active deployments, with data getting copied instantly for fast, consistent fail-over.</p>
+<p>Have a look at how our counter service remains correct throughout node failures, or <a href="https://github.com/restatedev/distributed-restate-announcement-demos?tab=readme-ov-file#demo-1-high-availability-demo">run the demo yourself</a>:</p>
+<h3>Simple to deploy, operate and scale</h3>
+<p>Restate runs as a single binary. You deploy the process across nodes, AZs, or regions, and it's ready to go. Nodes can periodically snapshot to a persistent volume or object store, simplifying operations in the cloud.</p>
+<p>The single binary runs a few different roles: log servers, workers, control plane. You can fine-tune which roles run on which nodes and scale them independently. This modular approach lets you add more resources where needed - for example, more computing power or storage capacity.</p>
+<p>Have a look at how we start with a single-node cluster and scale out by spinning up extra nodes and adjusting the replication settings. Restate’s segmented log design allows reconfiguration on the fly, making scaling up a matter of clicking a button.</p>
+<p><a href="https://github.com/restatedev/distributed-restate-announcement-demos?tab=readme-ov-file#demo-2-scale-up-from-one-node-to-a-cluster">Try to run it yourself!</a></p>
+<h3>Workflow semantics everywhere without sacrificing latency</h3>
+<p>Durable Execution gives workflow-like semantics (retries and recovery of progress) wherever you want it. Workflow orchestrators often have the connotation of being slow and not apt for latency-sensitive tasks, with workflow submission times of a second or more. With Restate this changes.</p>
+<p>Restate’s design <a href="https://restate.dev/blog/announcing-restate-1.2/#peek-under-the-hood">focuses on keeping <strong>latency low</strong></a>, so you can get workflow semantics anywhere, without sacrificing performance. This lets you use Restate for latency-sensitive tasks, like instant payments, interactive AI, and event processing from Kafka.</p>
+<p>Here are some latency measurements for a 3-way replicated cluster of 3 nodes under low and high load:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>load</th>
+<th><strong>p50</strong></th>
+<th>p75</th>
+<th><strong>p90</strong></th>
+<th>p99</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3-step workflow</td>
+<td>549 rps ( <strong>low</strong>)</td>
+<td><strong>15ms</strong></td>
+<td>30ms</td>
+<td><strong>42ms</strong></td>
+<td>69ms</td>
+</tr>
+<tr>
+<td>9-step workflow</td>
+<td>303 rps ( <strong>low</strong>)</td>
+<td><strong>31ms</strong></td>
+<td>45ms</td>
+<td><strong>57ms</strong></td>
+<td>93ms</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1-step workflow</td>
+<td>23 131 rps ( <strong>high</strong>)</td>
+<td><strong>16ms</strong></td>
+<td>20ms</td>
+<td><strong>25ms</strong></td>
+<td>40ms</td>
+</tr>
+<tr>
+<td>3-step workflow</td>
+<td>16 844 rps ( <strong>high</strong>)</td>
+<td><strong>58ms</strong></td>
+<td>67ms</td>
+<td><strong>76ms</strong></td>
+<td>98ms</td>
+</tr>
+<tr>
+<td>9-step workflow</td>
+<td>8 571 rps ( <strong>high</strong>)</td>
+<td><strong>116ms</strong></td>
+<td>126ms</td>
+<td><strong>138ms</strong></td>
+<td>163ms</td>
+</tr>
+</tbody>
+</table>
+<p>At low load, the 3-step workflow had a median latency of 15ms. Load can be pushed to 17 000 requests per second (84 000 actions per second) with a p90 latency of 76ms.</p>
+<p>Our next blog post will describe the design decisions we made to improve latency. You can also <a href="https://github.com/restatedev/restate/tree/main/scripts/loadtest-environment">run this benchmark yourself</a> on your own workloads.</p>
+<h3>Mature operational tooling</h3>
+<p>Restate already included a CLI to inspect services and invocations, which is a big help for application developers. To provide the same experience for operators, Restate 1.2 includes a new cluster administration tool. With <code>restatectl</code>, you can check the status of your cluster, view the partitioning layout, change the configuration of your cluster, and take snapshots.</p>
+<p>We used <code>restatectl</code> pretty heavily in the previous demos. Here is an example of how you can use it to check the status of your cluster:</p>
+<p><img src="https://restate.dev/_next/image?url=%2Fblog%2Frestate-1-2-announcement%2Fimage.png&amp;w=3840&amp;q=75" alt="image.png" loading="lazy" referrerpolicy="no-referrer"></p>
+<p><a href="https://docs.restate.dev/develop/local_dev">Install restatectl and try it yourself</a>.</p>
+<h3>Peek under the hood</h3>
+<p>Hold up, sub-50ms workflows, fast fail-overs, fine-grained scaling,… How is all of that possible?</p>
+<p>Restate is built from the ground up as a database for Durable Execution, with a distributed log and consensus algorithm at its core. The design is based on <a href="https://www.usenix.org/system/files/osdi20-balakrishnan.pdf">Virtual Consensus</a> and ideas from <a href="https://logdevice.io/">LogDevice</a>, and uses strong consensus in the control plane and relaxed requirements on the data plane, to improve efficiency and flexibility.</p>
+<p><img src="https://restate.dev/_next/image?url=%2Fblog%2Frestate-1-2-announcement%2FComplete.png&amp;w=3840&amp;q=75" alt="Restate architecture" loading="lazy" referrerpolicy="no-referrer"></p>
+<p>The system has a tiered architecture:</p>
+<ul>
+<li>A log for primary durability and fast appends</li>
+<li>Embedded RocksDB tables for storing invocations, state and timers</li>
+<li>Object store for persisting snapshots of the RocksDB tables</li>
+</ul>
+<p>This tiered approach has several benefits (similar as to <a href="https://developer.confluent.io/courses/architecture/tiered-storage/">Kafka’s tiered architecture</a>). Restate only needs to guard a few minutes worth of data, while most of it is stored in snapshots on object store. By keeping less data locally coupled to Restate Servers, clusters can scale up, recover, and reconfigure more quickly. It is also more cost-effective since object storage is less expensive.</p>
+<p>If you look at Restate’s architecture, you might wonder why we didn’t just build this on top of an existing database or queue? We believe you can’t.</p>
+<p>We built our own implementation of a distributed replicated log, because we didn't find any of the existing logs suitable in terms of latency (single roundtrip, quorum replication with external consensus), durability (active-active with flexible quorums), and flexibility (segmented log that can be dynamically reconfigured).</p>
+<p>The set of properties we need isn't found in many databases, let alone a full durable execution stack. But it is a killer experience when it exists, so we built it.</p>
+<p>There is so much to say about the design of Restate, so in the coming days, we will publish a deep dive blog post on the internals. For now, you can satisfy your curiosity with the earlier blog post we wrote on <a href="https://restate.dev/blog/distributed-restate-a-first-look/">Distributed Restate</a>.</p>
+<h2>Graphical UI: Insights beyond your usual queue</h2>
+<p>The Restate 1.2 release contains another big feature. Restate has always featured a great CLI to introspect state, workflows, and invocations. We are now adding a graphical UI as an easy and intuitive way to manage, navigate, and debug your Restate applications.</p>
+<p>When the industry moved to microservice architectures, we lost a lot of simplicity and flexibility in observing, monitoring and debugging applications. The <a href="https://landscape.cncf.io/?group=projects-and-products&amp;view-mode=card&amp;classify=category&amp;sort-by=name&amp;sort-direction=asc#observability-and-analysis--observability">sheer number of companies</a> in the observability space is a testament to this. Restate has a lot of information about your application through the events in its log. You can now access and query all of that information through the UI.</p>
+<p>The UI helps you answer complex questions, like <em>&quot;where in my chain of calls did my handler or workflow get stuck?&quot;</em>, <em>&quot;how many times was this function retried and which step is failing with what error?&quot;</em>, or <em>&quot;what function execution is blocking my invocation from getting executed?&quot;</em>. Take a look and see for yourself.</p>
+<p>The UI is bundled with Restate Server and accessible at the admin port <code>http://localhost:9070</code>.</p>
+<h2>Start building with Restate</h2>
+<p>Get started with the <a href="https://docs.restate.dev/quickstart">quickstart guide</a>, star <a href="https://github.com/restatedev/restate">the GitHub project</a>, and join the community on <a href="https://discord.restate.dev">Discord</a> or <a href="https://slack.restate.dev">Slack</a>. Be the first to know about new releases and technical posts — like the upcoming deep-dive on Restate’s architecture — by following us on <a href="https://twitter.com/restatedev">X</a>, <a href="https://www.linkedin.com/company/restatedev">LinkedIn</a>, <a href="https://bsky.app/profile/restate.dev">Bluesky</a>, or <a href="https://www.restate.dev/newsletter-signup/">subscribing to email updates</a>.</p>
+<p>Restate is also available as a fully managed service running in our cloud or yours. Try <a href="https://restate.dev/cloud/">Restate Cloud</a> for free and <a href="https://restate.dev/cloud/">contact our team for more information</a>.</p>
+<h2>Useful links</h2>
+<ul>
+<li>Check out the <a href="https://github.com/restatedev/restate/releases/tag/v1.2.0">full release notes for Restate</a></li>
+<li>Get started with <a href="https://docs.restate.dev/quickstart">Restate</a>, or if you already know Restate, try <a href="https://docs.restate.dev//guides/cluster">running a cluster locally</a>.</li>
+<li>Have a look at our previous blog post <a href="https://restate.dev/blog/distributed-restate-a-first-look/">introducing Restate’ distributed architecture</a>, or at the underpinning of Restate’s design that <a href="https://restate.dev/blog/every-system-is-a-log-avoiding-coordination-in-distributed-applications/">Every System is a Log</a></li>
+</ul>
+<h2>Keep reading</h2>
+<p><a href="https://restate.dev/blog/announcing-restate-1-8">Releases<br>
+<br>
+<img src="https://restate.dev/_next/image?url=%2Fblog%2Fannouncing-restate-1-8%2Fthumbnail.png&amp;w=3840&amp;q=75" alt="Restate 1.8: Mind the Queue" loading="lazy" referrerpolicy="no-referrer"><br>
+<br>
+<strong>Restate 1.8: Mind the Queue</strong> <br>
+<br>
+Restate 1.8 enables the virtual-queue scheduler by default and shows you why invocations are waiting.<br>
+<br>
+October 15, 2026•Restate Team</a> <a href="https://restate.dev/blog/announcing-restate-1-7">Releases<br>
+<br>
+<img src="https://restate.dev/_next/image?url=%2Fblog%2Fannouncing-restate-1-7%2Fthumbnail.png&amp;w=3840&amp;q=75" alt="Restate 1.7: End-to-end Flow Control for your Agents and Backends" loading="lazy" referrerpolicy="no-referrer"><br>
+<br>
+<strong>Restate 1.7: End-to-end Flow Control for your Agents and Backends</strong> <br>
+<br>
+Restate 1.7 introduces flow-control primitives to protect your services, ships a new Restate UI, and revamps tracing for long-running workloads.<br>
+<br>
+July 7, 2026•Restate Team</a> <a href="https://restate.dev/blog/announcing-restate-byoc">CloudReleases<br>
+<br>
+<img src="https://restate.dev/_next/image?url=%2Fblog%2Fannouncing-restate-byoc%2Fthumbnail.png&amp;w=3840&amp;q=75" alt="Announcing Restate BYOC" loading="lazy" referrerpolicy="no-referrer"><br>
+<br>
+<strong>Announcing Restate BYOC</strong> <br>
+<br>
+Announcing Restate BYOC: fully managed Restate deployed into your own cloud account and VPC. Private, secure, and up to 10x cheaper at high volumes.<br>
+<br>
+July 7, 2026•Restate Team</a></p>
+</article>
+</main>
+</body>
+</html>

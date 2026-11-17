@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>Monitoring Docker Containers on AWS ECS with Splunk Infrastructure Monitoring</title>
+<style>
+body{max-width:52rem;margin:2rem auto;padding:0 1rem;font:16px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#1f2328}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid #d8dce1;padding:.35rem .6rem;text-align:left;vertical-align:top}
+th{background:#f0f2f5}
+pre{background:#f6f7f9;padding:.8rem;overflow:auto;border-radius:6px}
+code{background:#f6f7f9;padding:.1rem .3rem;border-radius:3px}
+blockquote{border-left:3px solid #d8dce1;margin:1rem 0;padding-left:1rem;color:#4a5058}
+h1,h2,h3{line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+<article>
+<h1>Monitoring Docker Containers on AWS ECS with Splunk Infrastructure Monitoring</h1>
+<p><a href="https://www.splunk.com/en_us/blog/devops.html">Observability</a> February 27, 2020 <a href="https://www.splunk.com/en_us/blog/author/admin.html">Splunk</a></p>
+<p>Containers have become the preferred unit of abstraction for developers to deploy application code at a time when speed and scale are requirements to drive competitive advantage. This is especially true in software-driven organizations building competitive advantage through innovative customer-facing applications linked to digital transformation initiatives. However, monitoring containerized applications is easier said than done.</p>
+<p>We strive to ensure out of the box integrations with open-source container technologies including Docker, Kubernetes, as well as all the major public cloud container services – such as those offered by AWS, GCP, and Azure. In this blog post, we’ll elaborate on how you can use <a href="https://www.splunk.com/en_us/software/infrastructure-monitoring.html">Splunk Infrastructure Monitoring</a> to monitor Amazon ECS, for which we have some very exciting updates.</p>
+<h2>Monitoring Containers with Splunk Infrastructure Monitoring Streaming Analytics</h2>
+<p>The highly dynamic and ephemeral nature of containerized environments makes them very hard to monitor using traditional infrastructure monitoring or APM solutions. With hundreds – if not thousands – of components being spun up and down every day or even hour, batch-based monitoring solutions cannot keep up with the churn and in many cases cannot even see the new components, let alone enabling multi-dimensional real-time analysis.</p>
+<p>The Splunk Infrastructure Monitoring streaming analytics engine – SignalFlow – is the only one that can keep up with the dynamic nature of containerized environments without compromising performance and being overwhelmed by alert storms. Some of our customers are running the most demanding container based production environments in the industry, with millions of components being churned on a daily basis. Learn more about them <a href="https://www.signalfx.com/customers/">here</a>.</p>
+<h2>What is Amazon ECS?</h2>
+<p><a href="https://aws.amazon.com/ecs/features/">Amazon Elastic Container Service (ECS)</a> is Amazon’s <a href="https://www.splunk.com/en_us/blog/learn/container-orchestration.html">container orchestration</a> service for Docker containers. ECS allows you to automate the deployment and scheduling of containers without having to install and operate your own container orchestration and cluster management software. ECS automatically deploys containers in EC2 hosts running in a customer’s VPC. It is integrated with several popular AWS services, including Amazon CloudWatch for monitoring.</p>
+<p>You launch applications on an ECS cluster by defining, scheduling, and running tasks, with each task running up to 10 containers. Multiple copies of the same task can be simultaneously maintained with a service, which runs a specified number of task instances, and restarts those that become unhealthy or stop unexpectedly.</p>
+<p>AWS CloudWatch provides metrics on CPU and memory utilization for your entire ECS cluster as well as on the services within your clusters. Additional system-level metrics are provided depending on whether you use AWS Fargate to launch your services. Users not using Fargate own and monitor the EC2 instances that containers run on, so CPU and utilization metrics are available at the cluster, service, and task level.</p>
+<h2>Connecting Splunk to Amazon ECS</h2>
+<p>Several options exist for monitoring Amazon ECS with Splunk.</p>
+<p>For basic infrastructure and container monitoring, we provide the <a href="https://docs.signalfx.com/en/latest/getting-started/send-data.html#connect-to-aws-cloudwatch">Amazon CloudWatch integration</a>. AWS CloudWatch collect standard metrics on containers and other ECS constructs:</p>
+<ul>
+<li><strong>CPU</strong> and <strong>Memory</strong> utilization</li>
+<li><strong>I/O</strong>, such as reads, writes</li>
+<li><strong>Network</strong> – throughput, drops, and errors</li>
+</ul>
+<p>Splunk Infrastructure Monitoring will ingest data through the Cloudwatch Integration and automatically populate <a href="https://docs.signalfx.com/en/latest/built-in-content/built-in-dashboards.html#built-in-dashboards">built-in dashboards</a> and the <a href="https://docs.signalfx.com/en/latest/built-in-content/infra-nav.html#infra">Infrastructure Navigator</a> to quickly visualize metrics. In most cases, CloudWatch is configured by default to aggregate and report metrics at 5-minute resolution (with a few specific services reporting at 1-minute). Visualizations and alerts based on this data will update accordingly.</p>
+<p>For greater insight into the services running in your containers, as well as finer-grained monitoring of container metrics, you can now use the <a href="https://docs.signalfx.com/en/latest/integrations/agent/">Smart Agent</a>, our open-source metrics agent with seamless installation and dynamic configuration of metrics. This is a new option that we just recently made available. Since its <a href="https://www.signalfx.com/blog/introducing-the-signalfx-smart-agent-for-auto-discovery-dynamic-configuration-of-metrics-from-any-environment/">introduction</a>, the Smart Agent has become a very popular option for sending data to Splunk Infrastructure Monitoring because it greatly reduces the time spent setting up metrics plug-ins by providing automatic service discovery and configuration for monitoring content. We are excited to now make it available also for ECS deployments!</p>
+<p>As opposed to populating dashboards only for Amazon ECS, the Smart Agent automatically detects containers in your environment and the applications running in them, then generates the relevant service dashboards based on what was discovered.</p>
+<p>The Smart Agent is also capable of submitting metrics to Splunk at 1-second resolution, which makes it extremely useful for monitoring environments with a high degree of churn (i.e. your containers constantly appear and disappear for seconds at a time due to auto scaling or load balancing).</p>
+<h2>Monitoring Amazon ECS with AWS CloudWatch</h2>
+<p>Pre-built dashboards are generated that measure metrics for each individual ECS cluster and the services running in it, as well as your ECS deployment as a whole. Below are a few examples.</p>
+<h3><strong>Active Clusters</strong></h3>
+<p>For an overall view of your ECS deployment, Splunk Infrastructure Monitoring provides charts displaying the number of active clusters, services and tasks. Charts also appear that highlight top clusters and services by resource utilization.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_1d06dc123c9b3c5dc49834d0ea4162c99825eb790.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h3>Cluster Utilization</h3>
+<p>Each minute, ECS container agent calculates the % of CPU and memory that is currently being used for each task running on the container instance. Splunk Infrastructure Monitoring provides a ECS cluster dashboard that shows not only CPU and memory utilization for an entire cluster, but also by specific services with the highest resource utilization. A count of running services and tasks is provided as well.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_1a9ed0339a5dba5dbb0ef6cd331427df6cd68a173.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h3><strong>Service Utilization</strong></h3>
+<p>You can also drill down to a particular ECS service to see the number of tasks being run as well as CPU and memory utilization.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_10fdca488301beaceab016b8de8f388671fefc0b0.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h2>Monitoring Containers with the Smart Agent</h2>
+<p>Our Smart Agent will automatically discover containers deployed via ECS, then provide a heatmap view showing your entire fleet of containers or compute instances, with dashboards displaying aggregated system metrics across your environment. You can also select an individual container to see the specific applications running on it. It’s important to note as well that Smart Agent supports all ECS container networking modes: host, bridge and awsvpc.</p>
+<h3><strong>Real-time Resource Navigation</strong></h3>
+<p>When the Smart Agent is installed on your compute instances, a heatmap view is generated that sorts instances according to a variety of system metrics (cpu/memory/disk utilization, network traffic, disk operations). This view can easily be adjusted to group instances by dimensions such as AWS availability zone or by specific services that they support.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_1cbbf26329c8aaaf6f2efbe9a9b3d1cc1b51bf8cc.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h3><strong>Automatically Discovered Containers</strong></h3>
+<p>Active containers are automatically detected by the Smart Agent, allowing Splunk Infrastructure Monitoring to populate dashboards with individual container metrics.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_1f58078e3e2fb9318f66a7974922fe092144725a2.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h3>Dynamically Configured Service Dashboards</h3>
+<p>Because Smart Agent also detects the services running in each container, dashboards are automatically populated with relevant metrics. In this example, the Smart Agent is able to detect a Docker container running Elasticsearch, and generates content for each.</p>
+<p><img src="https://www.splunk.com/content/dam/splunk-blogs/images/media_136cf1ea0d5af74b86f1a3f84e08ba7980e9e2e27.avif?width=750&amp;format=avif&amp;optimize=medium" alt="" loading="lazy" referrerpolicy="no-referrer"></p>
+<h2>Get Complete Visibility Into Your AWS Environment</h2>
+<p>Splunk Infrastructure Monitoring has been built from the ground up to meet the requirements of modern container-based applications and environments. At the core of our solution is the most scalable high-performance analytics solution for monitoring across the entire stack. Splunk helps you see the behavior of your container fleet, the health of the services they power, and the metrics on the applications inside your containers. If you’re not already using Splunk Infrastructure Monitoring, get started with a <a href="https://www.splunk.com/en_us/download/infrastructure-monitoring.html">14-day trial</a>.</p>
+<p>Thanks,<br>
+Aaron Sun and Alberto Farronato</p>
+<p>Style</p>
+<p>two-column</p>
+<p>Title</p>
+<p>Related Articles</p>
+<p>Filter</p>
+<p>Category</p>
+<p>Blog Limit</p>
+<p>3</p>
+<p>Category</p>
+<p>devops</p>
+<p>Sort Category Shuffle Order</p>
+<p>true</p>
+<p>No results</p>
+<p><a href="https://www.splunk.com/en_us/blog/fragments/about-splunk">/en_us/blog/fragments/about-splunk</a></p>
+<p><a href="https://www.splunk.com/en_us/blog/fragments/subscribe-footer">/en_us/blog/fragments/subscribe-footer</a></p>
+</article>
+</main>
+</body>
+</html>

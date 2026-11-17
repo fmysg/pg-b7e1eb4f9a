@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<title>Introducing Orbit, your Fleet agent manager</title>
+<style>
+body{max-width:52rem;margin:2rem auto;padding:0 1rem;font:16px/1.65 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#1f2328}
+img{max-width:100%;height:auto}
+table{border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid #d8dce1;padding:.35rem .6rem;text-align:left;vertical-align:top}
+th{background:#f0f2f5}
+pre{background:#f6f7f9;padding:.8rem;overflow:auto;border-radius:6px}
+code{background:#f6f7f9;padding:.1rem .3rem;border-radius:3px}
+blockquote{border-left:3px solid #d8dce1;margin:1rem 0;padding-left:1rem;color:#4a5058}
+h1,h2,h3{line-height:1.3}
+</style>
+</head>
+<body>
+<main>
+<article>
+<p>{{categoryFriendlyName}}/</p>
+<p>{{thisPage.meta.articleTitle}}</p>
+<p><img src="https://fleetdm.com/images/icon-search-16x16@2x.png" alt="search" loading="lazy" referrerpolicy="no-referrer"></p>
+<p>⏎</p>
+<h1>Introducing Orbit, your Fleet agent manager</h1>
+<h2>{{articleSubtitle}}</h2>
+<p>Updated |</p>
+<p>Mo Zhu</p>
+<p><strong>Share</strong></p>
+<p><img src="https://fleetdm.com/images/social-share-icon-hacker-news-20x20@2x.png" alt="Share this article on Hacker News" loading="lazy" referrerpolicy="no-referrer"><img src="https://fleetdm.com/images/social-share-icon-linkedin-20x20@2x.png" alt="Share this article on LinkedIn" loading="lazy" referrerpolicy="no-referrer"><img src="https://fleetdm.com/images/social-share-icon-twitter-20x20@2x.png" alt="Share this article on Twitter" loading="lazy" referrerpolicy="no-referrer"></p>
+<p><img src="https://fleetdm.com/images/icon-edit-16x16@2x.png" alt="Suggest an edit" loading="lazy" referrerpolicy="no-referrer">Suggest an edit</p>
+<p><strong>On this page</strong></p>
+<p>{{topic.title}}</p>
+<p><a href="https://fleetdm.com/docs"><img src="https://fleetdm.com/images/icon-docs-16x16@2x.png" alt="Docs" loading="lazy" referrerpolicy="no-referrer"> Docs</a> <a href="https://fleetdm.com/docs/rest-api"><img src="https://fleetdm.com/images/icon-api-16x16@2x.png" alt="REST API" loading="lazy" referrerpolicy="no-referrer"> REST API</a> <a href="https://fleetdm.com/guides"><img src="https://fleetdm.com/images/icon-guides-16x16@2x.png" alt="Guides" loading="lazy" referrerpolicy="no-referrer"> Guides</a> <a href="https://fleetdm.com/contact?talkToUs"><img src="https://fleetdm.com/images/icon-contact-16x16@2x.png" alt="Get a demo" loading="lazy" referrerpolicy="no-referrer">Get a demo</a></p>
+<p><img src="https://fleetdm.com/images/icon-edit-16x16@2x.png" alt="Suggest an edit" loading="lazy" referrerpolicy="no-referrer">Suggest an edit</p>
+<h1>Introducing Orbit, your Fleet agent manager</h1>
+<h2>{{articleSubtitle}}</h2>
+<p>Updated |</p>
+<p>Mo Zhu</p>
+<h1>Introducing Orbit, your Fleet agent manager</h1>
+<p><img src="https://fleetdm.com/images/articles/fleet-4.17.0-1-1600x900@2x.jpg" alt="Orbit" loading="lazy" referrerpolicy="no-referrer"></p>
+<p>We’re pleased to announce that Orbit is out of beta and in v1!</p>
+<p>Orbit is an agent manager. It installs and updates Fleet’s agents on your end-user hosts (currently osquery and Fleet Desktop). Rather than doing all that manually, you can rely on Orbit, which regularly checks your Fleet instance for the latest desired setup and changes the agents on the host to match your specification. With Orbit, you can stop juggling osquery vs. Fleet Desktop vs. some other agent in your head.</p>
+<h2>How do I install Orbit on my hosts?</h2>
+<p>Orbit can be installed on your hosts with an installer package, which can be generated using the <code>fleetctl package</code> command. Once generated, run the installer on the host to start the install. The package can also be delivered at scale using an enterprise deployment tool like Munki. Read our doc on <a href="https://fleetdm.com/docs/using-fleet/adding-hosts#osquery-installer">adding hosts</a> to learn more about generating the package and installing Orbit.</p>
+<p><img src="https://fleetdm.com/images/articles/install-osquery-and-enroll-macos-devices-into-fleet-1-454x225@2x.png" alt="Generate installer" loading="lazy" referrerpolicy="no-referrer"><em>Generate installer for osquery on macOS</em></p>
+<h2>What does Orbit do right now?</h2>
+<p>To start, at v1, Orbit will:</p>
+<ul>
+<li>Install the latest Fleet-compatible version of osquery and Fleet Desktop.</li>
+<li>Upgrade osquery and Fleet Desktop to the latest Fleet-compatible version.</li>
+</ul>
+<p>Fleet maintains a <a href="https://theupdateframework.io/">TUF server</a> that provides secure updates to your agents. Orbit will automatically update the agents to their latest version — no action needed on your part. You can even <a href="https://github.com/fleetdm/fleet/tree/main/orbit#update-channels">pin the agent to a certain version</a> where needed. If you’re interested in managing your own version server, you can read our doc on <a href="https://fleetdm.com/docs/deploying/fleetctl-agent-updates#self-managed-agent-updates">Fleetctl agent updates</a> to learn more about setting that up.</p>
+<h2>Where will Orbit go from here?</h2>
+<p>We’re just at v1 and Orbit has a long way to go. We want Orbit to be Fleet’s representative on the end-user host. We already have a few features in the works, such as allowing Orbit to <a href="https://github.com/fleetdm/fleet/issues/6851">update osquery’s command line flags</a> and <a href="https://github.com/fleetdm/fleet/issues/6034">managing extensions for osquery</a>.</p>
+<p>Orbit will be the one-stop shop for all your agent needs in Fleet. Stay tuned as we deliver improvements to make that vision a reality.</p>
+<p>If you have suggestions for Orbit, please share them with us in the osquery Slack <a href="https://fleetdm.com/slack">#fleet channel</a> or open an issue in Github.</p>
+<h2>About Fleet</h2>
+<p>Fleet is the single endpoint management platform for macOS, iOS, Android, Windows, Linux, ChromeOS, and cloud infrastructure. Trusted by over 1,300 organizations, Fleet empowers IT and security teams to accelerate productivity, build verifiable trust, and optimize costs.</p>
+<p>By bringing infrastructure-as-code (IaC) practices to device management, Fleet ensures endpoints remain secure and operational, freeing engineering teams to focus on strategic initiatives.</p>
+<p>Fleet offers total deployment flexibility: on-premises, air-gapped, container-native (Docker and Kubernetes), or cloud-agnostic (AWS, Azure, GCP, DigitalOcean). Organizations can also choose fully managed SaaS via Fleet Cloud, ensuring complete control over data residency and legal jurisdiction.</p>
+<h2>Manage all your devices like it's 2026</h2>
+<p>Open MDM, patching, and vuln management for every OS.</p>
+<p><a href="https://fleetdm.com/customers">Read case studies</a> Try it yourself</p>
+<p><a href="https://fleetdm.com/"><img src="https://fleetdm.com/images/logo-blue-118x41@2x.png" alt="Fleet logo" loading="lazy" referrerpolicy="no-referrer"></a></p>
+<p><strong>Solutions</strong> <a href="https://fleetdm.com/device-management">Device management</a> <a href="https://fleetdm.com/software-management">Software management</a> <a href="https://fleetdm.com/support">Support</a> <a href="https://fleetdm.com/pricing">Pricing</a> <a href="https://fleetdm.com/partners">Partners</a></p>
+<p><strong>Documentation</strong> <a href="https://fleetdm.com/docs">Docs</a> <a href="https://fleetdm.com/docs/rest-api">API</a> <a href="https://fleetdm.com/releases">Release notes</a> <a href="https://fleetdm.com/download">Downloads</a> <a href="https://fleetdm.com/new-license">Get your license</a></p>
+<p><strong>Company</strong> <a href="https://fleetdm.com/handbook/company">About</a> <a href="https://fleetdm.com/trust">Trust</a> <a href="https://fleetdm.com/apply">Jobs</a> <a href="https://fleetdm.com/logos">Logos/artwork</a> <a href="https://fleetdm.com/handbook/company/why-this-way#why-open-source">Why open source?</a></p>
+<p><a href="https://www.iafcertsearch.org/certification/yQhogZVJ691JeF2brdffVk3Q"><img src="https://fleetdm.com/images/badge-iso27001-48x48@2x.png" alt="ISO 27001 certified" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://fleetdm.com/trust"><img src="https://fleetdm.com/images/badge-gdpr-48x48@2x.png" alt="GDPR compliant" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://fleetdm.com/trust"><img src="https://fleetdm.com/images/icon-checkmark-fleet-black-75-9x7@2x.png" alt="a small checkmark" loading="lazy" referrerpolicy="no-referrer"> SOC2 Type 2</a><img src="https://fleetdm.com/images/logo-creative-commons-greyscale-80x16@2x.png" alt="Creative Commons Licence CC BY-SA 4.0" loading="lazy" referrerpolicy="no-referrer"></p>
+<p>© 2026 <a href="https://fleetdm.com/handbook/company">Fleet Inc.</a><a href="https://fleetdm.com/legal/privacy">Privacy</a></p>
+<p><a href="https://fleetdm.com/slack"><img src="https://fleetdm.com/images/logo-slack-dark-20x20@2x.png" alt="Slack logo" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://github.com/fleetdm/fleet"><img src="https://fleetdm.com/images/logo-github-dark-24x24@2x.png" alt="GitHub logo" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://www.linkedin.com/company/fleetdm"><img src="https://fleetdm.com/images/logo-linkedin-24x24@2x.png" alt="LinkedIn logo" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://twitter.com/fleetctl"><img src="https://fleetdm.com/images/logo-x-24x24@2x.png" alt="X (Twitter) logo" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://www.youtube.com/channel/UCZyoqZ4exJvoibmTKJrQ-dQ"><img src="https://fleetdm.com/images/logo-youtube-29x20@2x.png" alt="Youtube logo" loading="lazy" referrerpolicy="no-referrer"></a><a href="https://mastodon.social/@Fleet@discuss.systems"><img src="https://fleetdm.com/images/logo-mastadon-24x23@2x.png" alt="Mastadon logo" loading="lazy" referrerpolicy="no-referrer"></a></p>
+</article>
+</main>
+</body>
+</html>
